@@ -1,23 +1,32 @@
 {
-    "manifest_version": 3,
-    "name": "Web Traffic Logger",
-    "version": "1.0",
-    "permissions": [
-      "webNavigation",
-      "tabs",
-      "activeTab"
-    ],
-    "background": {
-      "service_worker": "background.js"
-    },
-    "content_scripts": [
-      {
-        "matches": ["<all_urls>"],
-        "js": ["content.js"]
-      }
-    ],
-    "action": {
-      "default_popup": "popup.html"
+  "manifest_version": 3,
+  "name": "Web Traffic Logger",
+  "version": "1.0",
+  "permissions": [
+    "webNavigation",
+    "tabs",
+    "activeTab",
+    "storage",
+    "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ]
     }
+  ],
+  "action": {
+    "default_popup": "popup.html"
   }
-  
+}
