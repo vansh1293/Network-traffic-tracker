@@ -1,8 +1,9 @@
-import { Client, Databases } from 'appwrite';
+const { Client, Databases } = require('appwrite');
 
+const projectId = process.env.APPWRITE_PROJECT_ID;
 const client = new Client();
 client
   .setEndpoint('https://cloud.appwrite.io/v1') // Replace with your Appwrite endpoint
-  .setProject('[PROJECT-ID]'); // Replace with your project ID
+  .setProject(projectId); // Replace with your project ID
 
 export { client, Databases };
