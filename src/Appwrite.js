@@ -1,4 +1,5 @@
-const { Client, Databases } = require('appwrite');
+import {  Account,Client } from 'appwrite';
+import { Databases } from 'appwrite';
 
 const projectId = process.env.APPWRITE_PROJECT_ID;
 const client = new Client();

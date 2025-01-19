@@ -1,11 +1,11 @@
-const path = require('path');
-const Dotenv = require('dotenv-webpack');
+import path from 'path';
+import Dotenv from 'dotenv-webpack';
 
-module.exports = {
+export default {
   mode: 'production',
-  entry: './src/appwrite.js',
+  entry: './src/Appwrite.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(path.dirname(new URL(import.meta.url).pathname), 'dist'),
     filename: 'appwrite.bundle.js',
   },
   module: {
@@ -17,7 +17,6 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env'],
-            sourceType: 'module', // Explicitly set sourceType as 'module'
           },
         },
       },
