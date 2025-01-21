@@ -1,15 +1,32 @@
-function logPageSize(hostname) {
-    const size = document.documentElement.innerHTML.length;  // Calculate the size of the HTML content
-    console.log("URL:", window.location.href);
-    console.log("Page Size:", size, "bytes");
-    console.log("Host:", hostname);
+// content.js
 
-    // You can still log the page size, or you can remove this if you only care about the total data loaded
-}
+window.addEventListener("load", function () {
+    let totalDataLoaded = 0;
 
-// Listen for messages from the background script to log the page size
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.action === "logPageSize") {
-        logPageSize(message.hostname);
+    // Get all resources loaded on the page
+    const resources = performance.getEntriesByType("resource");
+
+    resources.forEach((resource) => {
+        totalDataLoaded += resource.transferSize; // transferSize gives the resource size
+    });
+
+    function bytesToMB(bytes) {
+        return (bytes / (1024 * 1024)).toFixed(2);
     }
+    console.log("Total data loaded on page:", bytesToMB(totalDataLoaded), "Mb");
+
+    // Store the data size into chrome storage for use in background
+    chrome.storage.local.get("webTraffic", function (result) {
+        let webTraffic = result.webTraffic || [];
+        webTraffic.push({
+            url: window.location.href,
+            timestamp: Date.now(),
+            totalDataLoaded: totalDataLoaded,
+            resourceType: "page"
+        });
+        chrome.storage.local.set({ webTraffic: webTraffic });
+    });
+
+    // Optionally, store the total data size separately
+    chrome.storage.local.set({ totalDataLoaded: totalDataLoaded });
 });

@@ -7,7 +7,6 @@
     "tabs",
     "activeTab",
     "storage",
-    "declarativeNetRequest",
     "declarativeNetRequestWithHostAccess"
   ],
   "host_permissions": [
@@ -28,5 +27,14 @@
   ],
   "action": {
     "default_popup": "popup.html"
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ruleset1",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
   }
 }
